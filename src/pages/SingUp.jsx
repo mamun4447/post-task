@@ -1,22 +1,42 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../context/AuthProvider";
 
 const SingUp = () => {
+  const {} = useContext(AuthContext);
+
+  const handleSignUp = (event) => {
+    event.preventDefault();
+
+    const form = event.target;
+  };
   return (
     <div>
-      <section class="bg-white dark:bg-gray-900">
-        <div class="container flex items-center justify-center min-h-screen px-6 mx-auto">
-          <form class="w-full max-w-md">
+      <section className="bg-white dark:bg-gray-900">
+        <div className="container flex items-center justify-center min-h-screen px-6 mx-auto">
+          <form onSubmit={handleSignUp} className="w-full max-w-md">
             <h1 className="text-2xl font-bold">Content-Poster</h1>
 
-            <h1 class="mt-3 text-2xl font-semibold text-gray-800 capitalize sm:text-3xl dark:text-white">
+            <h1 className="mt-3 text-2xl font-semibold text-gray-800 capitalize sm:text-3xl dark:text-white">
               sign In
             </h1>
 
-            <div class="relative flex items-center mt-8">
-              <span class="absolute">
+            {/* ===>Name<=== */}
+            <div className="relative flex items-center mt-8">
+              <input
+                name="name"
+                type="text"
+                className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                placeholder="Full name"
+              />
+            </div>
+
+            {/* ===>Email<=== */}
+            <div className="relative flex items-center mt-8">
+              <span className="absolute">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500"
+                  className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -31,17 +51,19 @@ const SingUp = () => {
               </span>
 
               <input
+                name="email"
                 type="email"
-                class="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 placeholder="Email address"
               />
             </div>
 
-            <div class="relative flex items-center mt-4">
-              <span class="absolute">
+            {/* ===>Password<=== */}
+            <div className="relative flex items-center mt-4">
+              <span className="absolute">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500"
+                  className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -56,26 +78,51 @@ const SingUp = () => {
               </span>
 
               <input
+                name="password"
                 type="password"
-                class="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 placeholder="Password"
               />
             </div>
 
-            <div class="mt-6">
-              <button class="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+            {/* ===> Confirm Password <=== */}
+            <div className="relative flex items-center mt-4">
+              <span className="absolute">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                  />
+                </svg>
+              </span>
+
+              <input
+                name="confirm"
+                type="password"
+                className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                placeholder="Confirm Password"
+              />
+            </div>
+
+            <div className="mt-6">
+              <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
                 Sign in
               </button>
 
-              <p class="mt-4 text-center text-gray-600 dark:text-gray-400">
+              <p className="mt-4 text-center text-gray-600 dark:text-gray-400">
                 or sign in with
               </p>
 
-              <a
-                href="/"
-                class="flex items-center justify-center px-6 py-3 mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
-              >
-                <svg class="w-6 h-6 mx-2" viewBox="0 0 40 40">
+              <button className="flex items-center justify-center w-full px-6 py-3 mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+                <svg className="w-6 h-6 mx-2" viewBox="0 0 40 40">
                   <path
                     d="M36.3425 16.7358H35V16.6667H20V23.3333H29.4192C28.045 27.2142 24.3525 30 20 30C14.4775 30 10 25.5225 10 20C10 14.4775 14.4775 9.99999 20 9.99999C22.5492 9.99999 24.8683 10.9617 26.6342 12.5325L31.3483 7.81833C28.3717 5.04416 24.39 3.33333 20 3.33333C10.7958 3.33333 3.33335 10.7958 3.33335 20C3.33335 29.2042 10.7958 36.6667 20 36.6667C29.2042 36.6667 36.6667 29.2042 36.6667 20C36.6667 18.8825 36.5517 17.7917 36.3425 16.7358Z"
                     fill="#FFC107"
@@ -94,16 +141,16 @@ const SingUp = () => {
                   />
                 </svg>
 
-                <span class="mx-2">Sign in with Google</span>
-              </a>
+                <span className="mx-2">Sign in with Google</span>
+              </button>
 
-              <div class="mt-6 text-center ">
-                <a
-                  href="/"
-                  class="text-sm text-blue-500 hover:underline dark:text-blue-400"
+              <div className="mt-6 text-center ">
+                <Link
+                  to="/login"
+                  className="text-sm text-blue-500 hover:underline dark:text-blue-400"
                 >
-                  Don’t have an account yet? Sign up
-                </a>
+                  Don’t have an account yet? Log In
+                </Link>
               </div>
             </div>
           </form>
