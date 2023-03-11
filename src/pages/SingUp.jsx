@@ -1,14 +1,107 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { GoogleAuthProvider } from "firebase/auth";
+import React, { useContext, useState } from "react";
+import { toast } from "react-hot-toast";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthProvider";
 
 const SingUp = () => {
-  const {} = useContext(AuthContext);
+  const [error, setError] = useState(null);
+  const { createUser, user, loading, googleLogIn, updateUser } =
+    useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const provider = new GoogleAuthProvider();
+  const from = location.state?.from?.pathname || "/";
+
+  // if (loading) {
+  //   return (
+  //     <>
+  //       <div className="flex items-center justify-center">
+  //         <RiseLoader color="#36d7b7" />
+  //       </div>
+  //       <ClipLoader
+  //         color={colorNames}
+  //         loading={loading}
+  //         cssOverride={override}
+  //         size={150}
+  //         aria-label="Loading Spinner"
+  //         data-testid="loader"
+  //       />
+  //       <div className="flex items-center justify-center">
+  //         <RiseLoader color="#36d7b7" />
+  //       </div>
+  //     </>
+  //   );
+  // }
 
   const handleSignUp = (event) => {
     event.preventDefault();
 
     const form = event.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    const confirm = form.confirm.value;
+
+    if (user) {
+      setError("");
+      navigate(from, { replace: true });
+      return toast.error("User already logged In!");
+    }
+    if (password === confirm) {
+      createUser(email, password)
+        .then((result) => {
+          handleUserName(name);
+          handlePostUser(result.user.displayName, result.user.email);
+          form.reset();
+          toast.success("User created successfully!");
+          setError("");
+          navigate(from, { replace: true });
+        })
+        .catch((error) => setError(error.message));
+    } else {
+      setError("Password doesn't match!");
+    }
+  };
+
+  //------User name&photo --------//
+  const handleUserName = (name) => {
+    updateUser(name)
+      .then((result) => {
+        // console.log(result);
+      })
+      .catch((error) => setError(error.message));
+  };
+
+  //=====Google SignIn=====//
+
+  const handleGoogleSignIn = (event) => {
+    event.preventDefault();
+    if (user) {
+      setError("User already logged in!");
+    } else {
+      googleLogIn(provider)
+        .then((result) => {
+          setError("");
+          handlePostUser(result.user.displayName, result.user.email);
+          toast.success("User Logged In successfully!");
+          navigate(from, { replace: true });
+        })
+        .then((error) => setError(error));
+    }
+  };
+
+  const handlePostUser = (name, email) => {
+    const user = { name, email, role: "user" };
+    fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
   };
   return (
     <div>
@@ -111,6 +204,7 @@ const SingUp = () => {
                 placeholder="Confirm Password"
               />
             </div>
+            {error && <p className="text-red-700">{error}</p>}
 
             <div className="mt-6">
               <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
@@ -121,7 +215,10 @@ const SingUp = () => {
                 or sign in with
               </p>
 
-              <button className="flex items-center justify-center w-full px-6 py-3 mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+              <button
+                onClick={handleGoogleSignIn}
+                className="flex items-center justify-center w-full px-6 py-3 mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
+              >
                 <svg className="w-6 h-6 mx-2" viewBox="0 0 40 40">
                   <path
                     d="M36.3425 16.7358H35V16.6667H20V23.3333H29.4192C28.045 27.2142 24.3525 30 20 30C14.4775 30 10 25.5225 10 20C10 14.4775 14.4775 9.99999 20 9.99999C22.5492 9.99999 24.8683 10.9617 26.6342 12.5325L31.3483 7.81833C28.3717 5.04416 24.39 3.33333 20 3.33333C10.7958 3.33333 3.33335 10.7958 3.33335 20C3.33335 29.2042 10.7958 36.6667 20 36.6667C29.2042 36.6667 36.6667 29.2042 36.6667 20C36.6667 18.8825 36.5517 17.7917 36.3425 16.7358Z"

@@ -1,4 +1,9 @@
+import AllPosts from "./components/AllPosts";
+import AllUsers from "./components/AllUsers";
+import MyPosts from "./components/MyPosts";
+import SideNav from "./components/SideNav";
 import LogIn from "./pages/LogIn";
+import Profile from "./pages/Profile";
 import SingUp from "./pages/SingUp";
 
 const { createBrowserRouter } = require("react-router-dom");
@@ -16,5 +21,23 @@ export const router = createBrowserRouter([
   {
     path: "/signup",
     element: <SingUp />,
+  },
+  {
+    path: "/profile",
+    element: <SideNav />,
+    children: [
+      {
+        path: "/profile",
+        element: <MyPosts />,
+      },
+      {
+        path: "profile/all-posts",
+        element: <AllPosts />,
+      },
+      {
+        path: "profile/all-users",
+        element: <AllUsers />,
+      },
+    ],
   },
 ]);
