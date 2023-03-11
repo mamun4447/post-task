@@ -1,11 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
+import { toast } from "react-hot-toast";
 import { BsThreeDots } from "react-icons/bs";
-import { ContextProvider } from "../context/ContextProvider";
+import { Context } from "../context/ContextProvider";
 
 const MySinglePost = ({ post }) => {
-  const { user } = useContext(ContextProvider);
+  const { handleDeletePost } = useContext(Context);
+
   return (
-    <div className="card w-full bg-base-100 shadow-xl">
+    <div className="card w-full bg-base-100 shadow-xl h-56">
       <div className="card-body">
         {/* Header */}
         <div className="flex justify-between items-center">
@@ -26,7 +28,7 @@ const MySinglePost = ({ post }) => {
             </div>
             <div>
               <p className="font-bold">{post?.name}</p>
-              <p className="text-gray-500">{post?.email}</p>
+              <p className="text-gray-500">{post?.email.slice(0, 20)}..</p>
             </div>
           </div>
 
@@ -40,7 +42,7 @@ const MySinglePost = ({ post }) => {
                 tabIndex={0}
                 className="menu menu-compact dropdown-content p-2 shadow bg-base-100 rounded-box"
               >
-                <li>
+                <li onClick={() => handleDeletePost(post._id)}>
                   <p>Delete</p>
                 </li>
               </ul>

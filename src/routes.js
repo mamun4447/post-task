@@ -1,7 +1,6 @@
-import AllPosts from "./components/AllPosts";
 import AllUsers from "./components/AllUsers";
 import MyPosts from "./components/MyPosts";
-import SideNav from "./components/SideNav";
+import Main from "./Layouts/Main";
 import LogIn from "./pages/LogIn";
 import SingUp from "./pages/SingUp";
 
@@ -23,7 +22,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "/profile",
-    element: <SideNav />,
+    element: <Main />,
     children: [
       {
         path: "/profile",

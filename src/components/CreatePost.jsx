@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
-import { ContextProvider } from "../context/ContextProvider";
+import { toast } from "react-hot-toast";
+import { Context } from "../context/ContextProvider";
 
 const CreatePost = () => {
-  const { user } = useContext(ContextProvider);
+  const { user } = useContext(Context);
   //   console.log(user);
   const handleContent = (event) => {
     event.preventDefault();
@@ -17,7 +18,7 @@ const CreatePost = () => {
     };
 
     //==> Create Post <===//
-    fetch("http://localhost:8000/content", {
+    fetch("http://localhost:5000/content", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -26,8 +27,12 @@ const CreatePost = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        form.reset();
+        if (data.success) {
+          form.reset();
+          toast.success(data.message);
+        } else {
+          toast.error(data.error);
+        }
       });
   };
   return (

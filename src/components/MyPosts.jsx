@@ -1,31 +1,31 @@
 import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { ContextProvider } from "../context/ContextProvider";
+import { Context } from "../context/ContextProvider";
 import MySinglePost from "./MySinglePost";
 
 const MyPosts = () => {
-  const { user } = useContext(ContextProvider);
+  const { user } = useContext(Context);
   const [posts, setPosts] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:8000/content/${user?.email}`)
+    fetch(`http://localhost:5000/content/${user?.email}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.success) {
-          console.log(data);
           setPosts(data.data);
         } else {
-          console.log(data);
           toast.error(data.error);
         }
       });
   }, [user?.email]);
-  console.log(posts);
+  // console.log(posts);
   return (
-    <div className=" h-[80vh] w-full">
-      {posts.map((post) => (
-        <MySinglePost post={post} key={post._id} />
-      ))}
+    <div className="flex flex-col">
+      <h1 className="text-3xl text-center my-5">My Posts</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+        {posts.map((post) => (
+          <MySinglePost post={post} key={post._id} />
+        ))}
+      </div>
     </div>
   );
 };

@@ -1,9 +1,16 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { BsThreeDots } from "react-icons/bs";
-import { ContextProvider } from "../context/ContextProvider";
+import { Context } from "../context/ContextProvider";
 
 const SinglePost = ({ post }) => {
-  const { handleDeletePost, userData } = useContext(ContextProvider);
+  const { handleDeletePost, user } = useContext(Context);
+  const [userData, setUserData] = useState({});
+  // ===>User provider<===//
+  useEffect(() => {
+    fetch(`http://localhost:5000/users/${user?.email}`)
+      .then((res) => res.json())
+      .then((data) => setUserData(data.data));
+  }, [user]);
   return (
     <div className="card w-full bg-base-100 shadow-xl">
       <div className="card-body">

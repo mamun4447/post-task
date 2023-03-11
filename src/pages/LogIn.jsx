@@ -2,15 +2,25 @@ import { GoogleAuthProvider } from "firebase/auth";
 import React, { useContext, useState } from "react";
 import { toast } from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { ContextProvider } from "../context/ContextProvider";
+import { Context } from "../context/ContextProvider";
+import PulseLoader from "react-spinners/ClipLoader";
 
 const LogIn = () => {
-  const { signIn, user, googleLogIn } = useContext(ContextProvider);
+  const { signIn, loading, user, googleLogIn } = useContext(Context);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
   const provider = new GoogleAuthProvider();
   const from = location.state?.from?.pathname || "/";
+
+  // Loading
+  if (loading) {
+    return (
+      <div className="text-center mt-72">
+        <PulseLoader />
+      </div>
+    );
+  }
 
   const handleLogin = (event) => {
     event.preventDefault();
@@ -53,7 +63,7 @@ const LogIn = () => {
 
   const handlePostUser = (name, email) => {
     const user = { name, email, role: "user" };
-    fetch("http://localhost:8000/users", {
+    fetch("http://localhost:5000/users", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -127,6 +137,7 @@ const LogIn = () => {
                 placeholder="Password"
               />
             </div>
+            {error && <p className="text-red-700">{error}</p>}
 
             <div className="mt-6">
               <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">

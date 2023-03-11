@@ -1,52 +1,67 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ContextProvider } from "../context/ContextProvider";
+import { Context } from "../context/ContextProvider";
+import PulseLoader from "react-spinners/ClipLoader";
 
 const SideNav = () => {
-  const { user, userData } = useContext(ContextProvider);
-  //   console.log(user);
+  const { user, loading } = useContext(Context);
+  const [userData, setUserData] = useState({});
+
+  // ===>User provider<===//
+  useEffect(() => {
+    fetch(`http://localhost:5000/users/${user?.email}`)
+      .then((res) => res.json())
+      .then((data) => setUserData(data.data));
+  }, [user]);
+
+  // Loading
+  if (loading) {
+    return (
+      <div className="text-center mt-72">
+        <PulseLoader />
+      </div>
+    );
+  }
 
   return (
-    <div className="flex flex-col w-16 justify-center xs:items-center md:w-52 lg:w-64 h-screen py-8 bg-white border-r dark:bg-gray-900 dark:border-gray-700">
-      {/* Logo */}
+    <aside className="flex flex-col  h-screen px-4 py-8 overflow-y-auto bg-gray-900 border-r rtl:border-r-0 rtl:border-l inset-0 sticky w-12 md:w-54 lg:w-64">
       <Link
         to="/"
-        title="Greeho Sheba"
-        className="relative flex items-center justify-center"
+        className="mx-auto text-white font-bold text-xl hidden md:block"
       >
-        <span className="ml-2 text-xl lg:text-2xl text-accent font-bold tracking-wide hidden md:block lg:block">
-          GreehoSheba
-        </span>
+        ContentPost
       </Link>
 
-      {/* ===Profile=== */}
+      {/* Profile Info */}
       <div className="flex flex-col items-center mt-6 -mx-2">
         {user?.photoURL ? (
           <img
-            className="object-cover w-8 md:w-24 lg:w-24 h-8 md:h-24 ld:h-24 mx-2 rounded-full"
+            className="object-cover w-8 h-8 mx-2 rounded-full"
             src={user.photoURL}
             alt="avatar"
           />
         ) : (
           <img
-            className="object-cover w-8 md:w-24 lg:w-24 h-8 md:h-24 ld:h-24 mx-2 rounded-full"
-            src="https://cdn3.iconfinder.com/data/icons/essential-rounded/64/Rounded-31-512.png"
+            className="object-cover w-8 h-8 mx-2 rounded-full"
+            src="https://static.toiimg.com/thumb/resizemode-4,msid-76729750,imgsize-249247,width-720/76729750.jpg"
             alt="avatar"
           />
         )}
-        <h4 className="mx-2 mt-2 font-medium text-gray-800 dark:text-gray-200 hover:underline hidden md:block lg:block">
+
+        <h4 className="mx-2 mt-2 text-white dark:text-gray-200 text-xl font-bold hidden md:block">
           {user?.displayName}
         </h4>
-        <p className="mx-2 mt-1 text-sm font-medium text-gray-600 dark:text-gray-400 hover:underline hidden md:block lg:block">
-          {user?.email}
-        </p>
+        <h4 className="mx-2 mt-2 text-gray-400 dark:text-gray-200 text-lg font-bold hidden md:block">
+          {user?.email.slice(0, 20)}..
+        </h4>
       </div>
 
+      {/* <===Nav element===> */}
       <div className="flex flex-col justify-between flex-1 mt-6">
         <nav>
-          {/* ===Home=== */}
           <Link
-            className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-200"
+            className="flex items-center md:px-4 py-2 mt-5 text-white transition-colors duration-300 transform rounded-lg gap-2"
+            title="Home"
             to="/"
           >
             <svg
@@ -64,18 +79,15 @@ const SideNav = () => {
               />
             </svg>
 
-            <span className="mx-4 font-medium hidden md:block lg:block">
-              Home
-            </span>
+            <span className=" font-medium hidden md:block">Home</span>
           </Link>
 
-          {/* ====Admin==== */}
+          {/* ==>Admin<== */}
           {userData?.role === "admin" && (
             <>
-              {/* ====Users==== */}
               <Link
+                className="flex items-center md:px-4 py-2 mt-5 text-white transition-colors duration-300 transform rounded-lg "
                 to="/profile/all-users"
-                className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-gray-200 hover:text-gray-700"
               >
                 <svg
                   className="w-5 h-5"
@@ -99,15 +111,13 @@ const SideNav = () => {
                   />
                 </svg>
 
-                <span className="mx-4 font-medium hidden md:block lg:block">
-                  Users
-                </span>
+                <span className="mx-4 font-medium hidden md:block">Users</span>
               </Link>
             </>
           )}
         </nav>
       </div>
-    </div>
+    </aside>
   );
 };
 

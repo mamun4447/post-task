@@ -5,7 +5,7 @@ const AllUsers = () => {
   // console.log(allUser);
 
   // ===>User<===//
-  // fetch(`http://localhost:8000/users`)
+  // fetch(`http://localhost:5000/users`)
   //   .then((res) => res.json())
   //   .then((data) => setAllUser(data.data));
   return <div>all User</div>;

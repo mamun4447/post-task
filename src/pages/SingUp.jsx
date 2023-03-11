@@ -2,38 +2,26 @@ import { GoogleAuthProvider } from "firebase/auth";
 import React, { useContext, useState } from "react";
 import { toast } from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { ContextProvider } from "../context/ContextProvider";
+import { Context } from "../context/ContextProvider";
+import PulseLoader from "react-spinners/ClipLoader";
 
 const SingUp = () => {
   const [error, setError] = useState(null);
   const { createUser, user, loading, googleLogIn, updateUser } =
-    useContext(ContextProvider);
+    useContext(Context);
   const navigate = useNavigate();
   const location = useLocation();
   const provider = new GoogleAuthProvider();
   const from = location.state?.from?.pathname || "/";
 
-  // if (loading) {
-  //   return (
-  //     <>
-  //       <div className="flex items-center justify-center">
-  //         <RiseLoader color="#36d7b7" />
-  //       </div>
-  //       <ClipLoader
-  //         color={colorNames}
-  //         loading={loading}
-  //         cssOverride={override}
-  //         size={150}
-  //         aria-label="Loading Spinner"
-  //         data-testid="loader"
-  //       />
-  //       <div className="flex items-center justify-center">
-  //         <RiseLoader color="#36d7b7" />
-  //       </div>
-  //     </>
-  //   );
-  // }
-
+  // Loading
+  if (loading) {
+    return (
+      <div className="text-center mt-72">
+        <PulseLoader />
+      </div>
+    );
+  }
   const handleSignUp = (event) => {
     event.preventDefault();
 
@@ -93,7 +81,7 @@ const SingUp = () => {
 
   const handlePostUser = (name, email) => {
     const user = { name, email, role: "user" };
-    fetch("http://localhost:8000/users", {
+    fetch("http://localhost:5000/users", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
