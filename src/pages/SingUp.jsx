@@ -2,12 +2,12 @@ import { GoogleAuthProvider } from "firebase/auth";
 import React, { useContext, useState } from "react";
 import { toast } from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthProvider";
+import { ContextProvider } from "../context/ContextProvider";
 
 const SingUp = () => {
   const [error, setError] = useState(null);
   const { createUser, user, loading, googleLogIn, updateUser } =
-    useContext(AuthContext);
+    useContext(ContextProvider);
   const navigate = useNavigate();
   const location = useLocation();
   const provider = new GoogleAuthProvider();
@@ -93,7 +93,7 @@ const SingUp = () => {
 
   const handlePostUser = (name, email) => {
     const user = { name, email, role: "user" };
-    fetch("http://localhost:5000/users", {
+    fetch("http://localhost:8000/users", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -133,11 +133,11 @@ const SingUp = () => {
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
-                  stroke-width="2"
+                  strokeWidth="2"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                   />
                 </svg>
@@ -160,11 +160,11 @@ const SingUp = () => {
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
-                  stroke-width="2"
+                  strokeWidth="2"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
                   />
                 </svg>
@@ -187,11 +187,11 @@ const SingUp = () => {
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
-                  stroke-width="2"
+                  strokeWidth="2"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
                   />
                 </svg>

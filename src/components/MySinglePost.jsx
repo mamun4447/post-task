@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { BsThreeDots } from "react-icons/bs";
-import { AuthContext } from "../context/AuthProvider";
+import { ContextProvider } from "../context/ContextProvider";
 
 const MySinglePost = ({ post }) => {
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(ContextProvider);
   return (
     <div className="card w-full bg-base-100 shadow-xl">
       <div className="card-body">
@@ -40,15 +40,9 @@ const MySinglePost = ({ post }) => {
                 tabIndex={0}
                 className="menu menu-compact dropdown-content p-2 shadow bg-base-100 rounded-box"
               >
-                {user?.status === "admin" ? (
-                  <li>
-                    <p>Delete</p>
-                  </li>
-                ) : (
-                  <li>
-                    <p className="w-full">Yor are not admin!</p>
-                  </li>
-                )}
+                <li>
+                  <p>Delete</p>
+                </li>
               </ul>
             </div>
           </div>

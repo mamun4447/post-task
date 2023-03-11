@@ -9,13 +9,36 @@ import {
   updateProfile,
 } from "firebase/auth";
 import app from "../firebase.config";
+import { toast } from "react-hot-toast";
+import { success } from "daisyui/src/colors";
 
-export const AuthContext = createContext();
+export const ContextProvider = createContext();
 const auth = getAuth(app);
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [userData, setUserData] = useState({});
+
+  // ===>User provider<===//
+  fetch(`http://localhost:8000/users/${user?.email}`)
+    .then((res) => res.json())
+    .then((data) => setUserData(data.data));
+
+  //==> Post Delete <===//
+  const handleDeletePost = (id) => {
+    fetch(`http://localhost:8000/content/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          toast.success(data.message);
+        } else {
+          toast.error(data.error);
+        }
+      });
+  };
 
   //==> Create User <===//
   const createUser = (email, password) => {
@@ -57,6 +80,8 @@ const AuthProvider = ({ children }) => {
 
   const authInfo = {
     createUser,
+    handleDeletePost,
+    userData,
     googleLogIn,
     signIn,
     updateUser,
@@ -65,7 +90,9 @@ const AuthProvider = ({ children }) => {
     loading,
   };
   return (
-    <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
+    <ContextProvider.Provider value={authInfo}>
+      {children}
+    </ContextProvider.Provider>
   );
 };
 

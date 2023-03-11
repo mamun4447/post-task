@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import { AuthContext } from "../context/AuthProvider";
+import { ContextProvider } from "../context/ContextProvider";
 
 const CreatePost = () => {
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(ContextProvider);
   //   console.log(user);
   const handleContent = (event) => {
     event.preventDefault();
@@ -16,7 +16,8 @@ const CreatePost = () => {
       userImg: user?.photoURL,
     };
 
-    fetch("http://localhost:5000/content", {
+    //==> Create Post <===//
+    fetch("http://localhost:8000/content", {
       method: "POST",
       headers: {
         "Content-type": "application/json",

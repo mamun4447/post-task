@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../context/AuthProvider";
+import { ContextProvider } from "../context/ContextProvider";
 import { CgProfile } from "react-icons/cg";
 
 const NavBar = () => {
-  const { logOut, user } = useContext(AuthContext);
+  const { logOut, user } = useContext(ContextProvider);
   return (
     <div>
       <div className="navbar bg-base-100">
