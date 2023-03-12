@@ -7,7 +7,7 @@ const MySinglePost = ({ post }) => {
   const { handleDeletePost } = useContext(Context);
 
   return (
-    <div className="card w-full bg-base-100 shadow-xl h-56">
+    <div className="card w-full bg-base-100 shadow-lg rounded-lg h-56">
       <div className="card-body">
         {/* Header */}
         <div className="flex justify-between items-center">

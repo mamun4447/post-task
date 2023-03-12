@@ -3,6 +3,7 @@ import MyPosts from "./components/MyPosts";
 import Main from "./Layouts/Main";
 import LogIn from "./pages/LogIn";
 import SingUp from "./pages/SingUp";
+import PrivateRoute from "./PrivateRoute/PrivateRoute";
 
 const { createBrowserRouter } = require("react-router-dom");
 const { default: Home } = require("./pages/Home");
@@ -10,7 +11,11 @@ const { default: Home } = require("./pages/Home");
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: (
+      <PrivateRoute>
+        <Home />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/login",
@@ -26,7 +31,11 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/profile",
-        element: <MyPosts />,
+        element: (
+          <PrivateRoute>
+            <MyPosts />
+          </PrivateRoute>
+        ),
       },
 
       // {

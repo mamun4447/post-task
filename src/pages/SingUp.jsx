@@ -16,11 +16,9 @@ const SingUp = () => {
 
   // Loading
   if (loading) {
-    return (
-      <div className="text-center mt-72">
-        <PulseLoader />
-      </div>
-    );
+    <div className="text-center mt-72">
+      <PulseLoader />
+    </div>;
   }
   const handleSignUp = (event) => {
     event.preventDefault();
@@ -44,7 +42,7 @@ const SingUp = () => {
           form.reset();
           toast.success("User created successfully!");
           setError("");
-          navigate(from, { replace: true });
+          navigate("/");
         })
         .catch((error) => setError(error.message));
     } else {
@@ -73,7 +71,7 @@ const SingUp = () => {
           setError("");
           handlePostUser(result.user.displayName, result.user.email);
           toast.success("User Logged In successfully!");
-          navigate(from, { replace: true });
+          navigate("/");
         })
         .then((error) => setError(error));
     }
@@ -81,7 +79,7 @@ const SingUp = () => {
 
   const handlePostUser = (name, email) => {
     const user = { name, email, role: "user" };
-    fetch("http://localhost:5000/users", {
+    fetch("https://content-post.vercel.app/users", {
       method: "POST",
       headers: {
         "Content-type": "application/json",

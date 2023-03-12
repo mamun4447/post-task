@@ -10,7 +10,7 @@
 
 //   // ===>User<===//
 //   useEffect(() => {
-//     fetch(`http://localhost:5000/users`)
+//     fetch(`https://content-post.vercel.app/users`)
 //       .then((res) => res.json())
 //       .then((data) => {
 //         if (data.success) {

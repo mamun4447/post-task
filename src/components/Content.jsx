@@ -5,7 +5,7 @@ const Content = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/content")
+    fetch("https://content-post.vercel.app/content")
       .then((res) => res.json())
       .then((data) => {
         setPosts(data.data);
@@ -14,7 +14,7 @@ const Content = () => {
   }, [posts]);
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-      {posts.map((post) => (
+      {posts?.map((post) => (
         <SinglePost post={post} key={post._id} />
       ))}
     </div>

@@ -20,7 +20,7 @@ const ContextProvider = ({ children }) => {
 
   //==> Post Delete <===//
   const handleDeletePost = (id) => {
-    fetch(`http://localhost:5000/content/${id}`, {
+    fetch(`https://content-post.vercel.app/content/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())

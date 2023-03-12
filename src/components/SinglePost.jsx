@@ -7,17 +7,17 @@ const SinglePost = ({ post }) => {
   const [userData, setUserData] = useState({});
   // ===>User provider<===//
   useEffect(() => {
-    fetch(`http://localhost:5000/users/${user?.email}`)
+    fetch(`https://content-post.vercel.app/users/${user?.email}`)
       .then((res) => res.json())
       .then((data) => setUserData(data.data));
   }, [user]);
   return (
-    <div className="card w-full bg-base-100 shadow-xl">
+    <div className="card w-full bg-base-100 shadow-lg rounded-lg">
       <div className="card-body">
         {/* Header */}
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center mx-2">
           {/* User */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 ">
             {/* ==Avatar== */}
             <div className="avatar">
               <div className="w-12 rounded-full">
@@ -33,14 +33,14 @@ const SinglePost = ({ post }) => {
             </div>
             <div>
               <p className="font-bold">{post?.name}</p>
-              <p className="text-gray-500">{post?.email}</p>
+              <p className="text-gray-500">{post?.email?.slice(0, 20)}..</p>
             </div>
           </div>
 
           {/* menu */}
           <div className="">
             <div className="dropdown">
-              <label tabIndex={0} className=" rounded-full p-1 cursor-pointer">
+              <label tabIndex={0} className=" rounded-full p-1 cursor-pointer ">
                 <BsThreeDots />
               </label>
               <ul
@@ -60,8 +60,8 @@ const SinglePost = ({ post }) => {
             </div>
           </div>
         </div>
-        <div className="my-4">
-          <p>{post?.content}</p>
+        <div className="my-4 w-56">
+          <p className="w-56 overflow-auto">{post?.content}</p>
         </div>
       </div>
     </div>

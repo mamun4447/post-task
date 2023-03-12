@@ -18,7 +18,7 @@ const CreatePost = () => {
     };
 
     //==> Create Post <===//
-    fetch("http://localhost:5000/content", {
+    fetch("https://content-post.vercel.app/content", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -38,7 +38,7 @@ const CreatePost = () => {
   return (
     <form
       onSubmit={handleContent}
-      className="flex  items-center justify-center shadow-lg p-4 rounded-xl  w-full gap-2"
+      className="flex  items-center justify-center shadow-md p-4 rounded-lg  w-full gap-2"
     >
       {/* ==Avatar== */}
       <div className="avatar">

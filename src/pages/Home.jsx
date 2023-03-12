@@ -15,14 +15,12 @@ const Home = () => {
 
   // Loading
   if (loading) {
-    return (
-      <div className="text-center mt-72">
-        <PulseLoader />
-      </div>
-    );
+    <div className="text-center mt-72">
+      <PulseLoader />
+    </div>;
   }
   return (
-    <div className="mx-2">
+    <div className="mx-auto container">
       <NavBar />
       <CreatePost />
       <Content />

@@ -5,26 +5,24 @@ import PulseLoader from "react-spinners/ClipLoader";
 
 const SideNav = () => {
   const { user, loading } = useContext(Context);
-  const [userData, setUserData] = useState({});
+  // const [userData, setUserData] = useState({});
 
-  // ===>User provider<===//
-  useEffect(() => {
-    fetch(`http://localhost:5000/users/${user?.email}`)
-      .then((res) => res.json())
-      .then((data) => setUserData(data.data));
-  }, [user]);
+  // // ===>User provider<===//
+  // useEffect(() => {
+  //   fetch(`https://content-post.vercel.app/users/${user?.email}`)
+  //     .then((res) => res.json())
+  //     .then((data) => setUserData(data.data));
+  // }, [user]);
 
   // Loading
   if (loading) {
-    return (
-      <div className="text-center mt-72">
-        <PulseLoader />
-      </div>
-    );
+    <div className="text-center mt-72">
+      <PulseLoader />
+    </div>;
   }
 
   return (
-    <aside className="flex flex-col  h-screen px-4 py-8 overflow-y-auto bg-gray-900 border-r rtl:border-r-0 rtl:border-l inset-0 sticky w-12 md:w-54 lg:w-64">
+    <aside className="flex flex-col  h-screen px-4 py-8 overflow-y-auto bg-gray-900 border-r rtl:border-r-0 rtl:border-l inset-0 sticky w-12 md:w-56 lg:w-64">
       <Link
         to="/"
         className="mx-auto text-white font-bold text-xl hidden md:block"
@@ -36,13 +34,13 @@ const SideNav = () => {
       <div className="flex flex-col items-center mt-6 -mx-2">
         {user?.photoURL ? (
           <img
-            className="object-cover w-8 h-8 mx-2 rounded-full"
+            className="object-cover w-8 h-8 md:w-24 md:h-24 mx-2 rounded-full"
             src={user.photoURL}
             alt="avatar"
           />
         ) : (
           <img
-            className="object-cover w-8 h-8 mx-2 rounded-full"
+            className="object-cover w-8 h-8 md:w-24 md:h-24 mx-2 rounded-full"
             src="https://static.toiimg.com/thumb/resizemode-4,msid-76729750,imgsize-249247,width-720/76729750.jpg"
             alt="avatar"
           />
