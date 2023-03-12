@@ -83,7 +83,7 @@ const SideNav = () => {
           </Link>
 
           {/* ==>Admin<== */}
-          {userData?.role === "admin" && (
+          {/* {userData?.role === "admin" && (
             <>
               <Link
                 className="flex items-center md:px-4 py-2 mt-5 text-white transition-colors duration-300 transform rounded-lg "
@@ -114,7 +114,7 @@ const SideNav = () => {
                 <span className="mx-4 font-medium hidden md:block">Users</span>
               </Link>
             </>
-          )}
+          )} */}
         </nav>
       </div>
     </aside>

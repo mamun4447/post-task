@@ -1,4 +1,4 @@
-import AllUsers from "./components/AllUsers";
+// import AllUsers from "./components/AllUsers";
 import MyPosts from "./components/MyPosts";
 import Main from "./Layouts/Main";
 import LogIn from "./pages/LogIn";
@@ -29,10 +29,10 @@ export const router = createBrowserRouter([
         element: <MyPosts />,
       },
 
-      {
-        path: "/profile/all-users",
-        element: <AllUsers />,
-      },
+      // {
+      //   path: "/profile/all-users",
+      //   element: <AllUsers />,
+      // },
     ],
   },
 ]);
