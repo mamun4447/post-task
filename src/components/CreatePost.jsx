@@ -38,7 +38,7 @@ const CreatePost = () => {
   return (
     <form
       onSubmit={handleContent}
-      className="flex  items-center justify-center shadow-md p-4 rounded-lg  w-full gap-2"
+      className="flex  items-center justify-center shadow-md p-4 rounded-lg  w-full gap-2 mt-2"
     >
       {/* ==Avatar== */}
       <div className="avatar">

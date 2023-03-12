@@ -1,5 +1,4 @@
-import React, { useContext, useEffect } from "react";
-import { toast } from "react-hot-toast";
+import React, { useContext } from "react";
 import { BsThreeDots } from "react-icons/bs";
 import { Context } from "../context/ContextProvider";
 

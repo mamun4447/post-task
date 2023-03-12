@@ -1,4 +1,4 @@
-import React, { useContext, useState, CSSProperties } from "react";
+import React, { useContext } from "react";
 import Content from "../components/Content";
 import CreatePost from "../components/CreatePost";
 import NavBar from "../components/NavBar";

@@ -1,6 +1,5 @@
-import React, { useContext } from "react";
-import { toast } from "react-hot-toast";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { Context } from "../context/ContextProvider";
 
 const PrivateRoute = ({ children }) => {

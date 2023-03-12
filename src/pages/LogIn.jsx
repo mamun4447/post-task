@@ -1,7 +1,7 @@
 import { GoogleAuthProvider } from "firebase/auth";
 import React, { useContext, useState } from "react";
 import { toast } from "react-hot-toast";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../context/ContextProvider";
 import PulseLoader from "react-spinners/ClipLoader";
 
@@ -9,9 +9,7 @@ const LogIn = () => {
   const { signIn, loading, user, googleLogIn } = useContext(Context);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const location = useLocation();
   const provider = new GoogleAuthProvider();
-  const from = location.state?.from?.pathname || "/";
 
   // Loading
   if (loading) {

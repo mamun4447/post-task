@@ -19,7 +19,7 @@ const MyPosts = () => {
   }, [user?.email]);
   // console.log(posts);
   return (
-    <div className="flex flex-col container mx-auto mr-4">
+    <div className="flex-1 mr-4">
       <h1 className="text-3xl text-center my-5">My Posts</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
         {posts.map((post) => (
